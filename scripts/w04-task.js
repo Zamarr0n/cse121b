@@ -50,6 +50,7 @@ myProfile.hobbies.forEach(element => {
 
 /* Places Lived DataList */
 myProfile.placesLived.forEach(element => {
+    
     let new_element = document.createElement("dt");
     let second_new_element = document.createElement("dd");
     new_element.textContent = element.place;
@@ -57,5 +58,6 @@ myProfile.placesLived.forEach(element => {
     let add = document.querySelector("#places-lived");
     add.appendChild(new_element);
     add.appendChild(second_new_element);
+
 });
 
