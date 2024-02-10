@@ -1,45 +1,33 @@
 /* W05: Programming Tasks */
 /* Declare and initialize global variables */
-const templesElement = document.querySelector("#temples");
-const templeList = [];
-const utah_cities = ["Cedar City Utah","Manti, Utah, United States", "Payson, Utah, United States", "Provo, Utah, United States", "Salt Lake City, Utah, United States", "St. George, Utah, United States", "South Jordan, Utah, United States", "Logan, Utah, United States", "Vernal, Utah, United States"];
+let templesList;
 //  async displayTemples Function 
 const displayTemples = (temples) =>{
-
-    for (let i = 0; i < temples.length; i++) {
-    const first = temples[i];
-    
-    first.forEach((element) => {
+    const templesElement = document.getElementById("temples");
+    temples.forEach((element) => {
         let box = document.createElement("article");
         let title = document.createElement("h3");
         let photo = document.createElement("img");
-        title.textContent = element['templeName'];
-        photo.setAttribute("src",element['imageUrl']);
-        photo.setAttribute("alt",element['location']);
+        title.textContent = element.templeName;
+        photo.setAttribute("src",element.imageUrl);
+        photo.setAttribute("alt",element.location);
         box.appendChild(title);
         box.appendChild(photo);
         templesElement.appendChild(box);
     });
-
-} 
-
-} 
+}
 
 /* async getTemples Function using fetch()*/
-const getTemples = async() => {
-    const response = await fetch("https://byui-cse.github.io/cse121b-ww-course/resources/temples.json");
-    if(response.ok){
-        const data = await response.json();
-        templeList.push(data);
-        console.log(templeList)            
-    }else{
-        console.log("Error 404")
-    }
-
-    displayTemples(templeList);
+async function getTemples(){
+    const url = "https://byui-cse.github.io/cse121b-ww-course/resources/temples.json";
+    const response = await fetch(url);
+    templesList = await response.json();
+    console.log(templesList)            
+    displayTemples(templesList);
 }
 /* reset Function */
 const reset = () => {
+    const templesElement = document.getElementById("temples");
     if(templesElement){
         templesElement.innerHTML = '';
     }else{
@@ -50,22 +38,22 @@ const reset = () => {
 /* filterTemples Function */
 const filterTemples = (temples) => {
     reset();
-    const filter = document.querySelector("#filtered").value; 
-    switch (filter) {
+    const filtro = document.getElementById("filtered").value; 
+    switch (filtro) {
         case 'utah':
-        // displayTemples(temples.filter(cities => cities.location == "Cedar City Utah","Manti, Utah, United States", "Payson, Utah, United States", "Provo, Utah, United States", "Salt Lake City, Utah, United States", "St. George, Utah, United States", "South Jordan, Utah, United States", "Logan, Utah, United States", "Vernal, Utah, United States"))
-        // displayTemples(temples.filter(temp => temp.location.includes =='Utah'));
-            console.log('utah')
+            const ubicacion_utah = templesList.filter((ubicacion) => ubicacion.location.includes('Utah'));
+            displayTemples(ubicacion_utah)
+            console.log(ubicacion_utah);
             break;
-        case 'not-utah':
-            // displayTemples(temples.filter(temp => temp.location.includes('Utah')));
-
-            console.log('not-utah')
+        case 'not-utah':            
+            const not_utah = templesList.filter((ubicacion) => !ubicacion.location.includes('Utah'));
+            displayTemples(not_utah)
+            console.log(not_utah)
             break;
         case 'older':
-            // displayTemples(temples.filter(temp => new Date(temp.dedicated) < new Date(1950, 0, 1)));
-            
-            console.log('older')
+            const oldest = temples.filter(year => new Date(year.dedicated) < new Date(1950, 0, 1));
+            displayTemples(oldest)
+            console.log(oldest)
             break;
         case 'all':
             displayTemples(temples);
@@ -79,4 +67,4 @@ const filterTemples = (temples) => {
 getTemples();
 
 /* Event Listener */
-document.querySelector("#filtered").addEventListener("change", () => {filterTemples(templeList) });
+document.querySelector("#filtered").addEventListener("change", () => {filterTemples(templesList) });
