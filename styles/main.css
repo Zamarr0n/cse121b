@@ -197,6 +197,20 @@ footer {
     gap: 1rem;
 }
 
+.container{
+    display: flex;    
+    align-items: center;
+}
+
+.space_rigth{
+    padding-right: .5rem;
+}
+
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 /* ID Selectors */
 
 #home {
