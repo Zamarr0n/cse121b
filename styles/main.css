@@ -211,6 +211,15 @@ footer {
     flex-direction: row;
     justify-content: space-around;
 }
+
+.info{
+    text-align: center;
+}
+.small-letters{
+    text-align: center;
+    
+    font-size: small;
+}
 /* ID Selectors */
 
 #home {
@@ -293,6 +302,12 @@ footer {
     margin: .5rem;
 }
 
+
+#result{
+    text-align: center;
+    padding-top: 2.5rem;
+
+}
 /* Media Queries */
 @media only screen and (min-width: 32.5em) {
     nav ul {
